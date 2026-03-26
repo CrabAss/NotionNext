@@ -108,19 +108,6 @@ const NavBar = props => {
   const { locale } = useGlobal()
   let links = [
     {
-      id: 0,
-      name: locale.NAV.ABOUT,
-      href: '/about',
-      show: siteConfig('NOBELIUM_MENU_ABOUT', false, CONFIG)
-    },
-    {
-      id: 2,
-      name: locale.NAV.RSS,
-      href: '/feed',
-      show: siteConfig('ENABLE_RSS') && siteConfig('NOBELIUM_MENU_RSS'),
-      target: '_blank'
-    },
-    {
       icon: 'fas fa-search',
       name: locale.NAV.SEARCH,
       href: '/search',
@@ -184,6 +171,17 @@ const NavBar = props => {
           </div>
         </Collapse>
       </div>
+
+      {siteConfig('ENABLE_RSS') && siteConfig('NOBELIUM_MENU_RSS') && (
+        <SmartLink
+          href='/rss.xml'
+          target='_blank'
+          aria-label={locale.NAV.RSS}
+          title={locale.NAV.RSS}
+          className='cursor-pointer hover:bg-black hover:bg-opacity-10 rounded-full w-10 h-10 flex justify-center items-center duration-200 transition-all'>
+          <i className='fa-solid fa-rss' />
+        </SmartLink>
+      )}
 
       {siteConfig('NOBELIUM_MENU_DARKMODE_BUTTON') && (
         <DarkModeButton className='text-center p-2.5 hover:bg-black hover:bg-opacity-10 rounded-full' />

@@ -225,7 +225,7 @@ const LayoutSlug = props => {
             const article = document.querySelector('#article-wrapper #notion-article')
             if (!article) {
               router.push('/404').then(() => {
-                console.warn('找不到页面', router.asPath)
+                console.warn('Page not found', router.asPath)
               })
             }
           }
@@ -268,7 +268,7 @@ const Layout404 = props => {
       const article = isBrowser && document.getElementById('article-wrapper')
       if (!article) {
         router.push('/').then(() => {
-          // console.log('找不到页面', router.asPath)
+          // console.log('Page not found', router.asPath)
         })
       }
     }, 3000)
@@ -279,7 +279,7 @@ const Layout404 = props => {
             <div className='dark:text-gray-200'>
                 <h2 className='inline-block border-r-2 border-gray-600 mr-2 px-3 py-2 align-top'><i className='mr-2 fas fa-spinner animate-spin' />404</h2>
                 <div className='inline-block text-left h-32 leading-10 items-center'>
-                    <h2 className='m-0 p-0'>页面无法加载，即将返回首页</h2>
+                    <h2 className='m-0 p-0'>Page not found. Redirecting to the home page.</h2>
                 </div>
             </div>
         </div>
