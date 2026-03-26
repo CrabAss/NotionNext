@@ -12,6 +12,40 @@ import { MenuItemDrop } from './MenuItemDrop'
 import RandomPostButton from './RandomPostButton'
 import SearchButton from './SearchButton'
 import { SvgIcon } from './SvgIcon'
+
+const normalizeLinkHref = link => {
+  if (!link) {
+    return '/'
+  }
+  if (link.href) {
+    return link.href
+  }
+  if (link.slug) {
+    return link.slug.startsWith('/') ? link.slug : `/${link.slug}`
+  }
+  return '/'
+}
+
+const normalizeNavLink = link => {
+  if (!link) {
+    return null
+  }
+
+  return {
+    ...link,
+    name: link.name || link.title || '',
+    href: normalizeLinkHref(link),
+    show: link.show !== false,
+    subMenus: Array.isArray(link.subMenus)
+      ? link.subMenus.map(subLink => ({
+          ...subLink,
+          name: subLink?.name || subLink?.title || '',
+          href: normalizeLinkHref(subLink),
+          show: subLink?.show !== false
+        }))
+      : []
+  }
+}
 /**
  * 顶部导航
  */
@@ -132,13 +166,18 @@ const NavBar = props => {
       show: siteConfig('NOBELIUM_MENU_TAG')
     }
   ]
-  if (customNav) {
-    links = links.concat(customNav)
+  const normalizedCustomNav = customNav?.map(normalizeNavLink).filter(Boolean)
+  const normalizedCustomMenu = customMenu
+    ?.map(normalizeNavLink)
+    .filter(Boolean)
+
+  if (normalizedCustomNav?.length) {
+    links = links.concat(normalizedCustomNav)
   }
 
-  // 如果 开启自定义菜单，则覆盖Page生成的菜单
+  // 如果开启自定义菜单，则优先读取Menu/SubMenu；为空时回退到Page菜单
   if (siteConfig('CUSTOM_MENU')) {
-    links = customMenu
+    links = normalizedCustomMenu?.length ? normalizedCustomMenu : normalizedCustomNav
   }
 
   const hasMenuLinks = !!(links && links.length > 0)
