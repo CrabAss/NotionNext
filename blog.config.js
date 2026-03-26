@@ -17,6 +17,9 @@ const BLOG = {
     process.env.NEXT_PUBLIC_APPEARANCE_DARK_TIME || false, // 夜间模式起至时间，false时关闭根据时间自动切换夜间模式
 
   AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || 'Henry Johnson', // 您的昵称 例如 tangly1024
+  EMAIL_HASH:
+    process.env.NEXT_PUBLIC_EMAIL_HASH ||
+    '7966674eb735a5b3c11f5dac9a9a8275', // gravatar md5(email.trim().toLowerCase())
   TITLE: process.env.NEXT_PUBLIC_TITLE || 'CrabLog', // 站点标题
   DESCRIPTION:
     process.env.NEXT_PUBLIC_DESCRIPTION || "welcome to Henry's blog!", // 站点描述

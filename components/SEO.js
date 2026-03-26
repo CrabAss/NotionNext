@@ -1,5 +1,6 @@
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
+import { getCircularFaviconUrl, getSiteAvatarUrl } from '@/lib/utils/avatar'
 import { loadExternalResource } from '@/lib/utils'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -57,7 +58,6 @@ const SEO = props => {
   const type = meta?.type || 'website'
   const lang = siteConfig('LANG').replace('-', '_') // Facebook OpenGraph 要 zh_CN 這樣的格式才抓得到語言
   const category = meta?.category || KEYWORDS // section 主要是像是 category 這樣的分類，Facebook 用這個來抓連結的分類
-  const favicon = siteConfig('AVATAR') || siteConfig('BLOG_FAVICON')
   const BACKGROUND_DARK = siteConfig('BACKGROUND_DARK', '', NOTION_CONFIG)
 
   const SEO_BAIDU_SITE_VERIFICATION = siteConfig(
@@ -72,9 +72,14 @@ const SEO = props => {
     NOTION_CONFIG
   )
 
-  const BLOG_FAVICON =
-    siteConfig('AVATAR', null, NOTION_CONFIG) ||
-    siteConfig('BLOG_FAVICON', null, NOTION_CONFIG)
+  const avatarFavicon = getSiteAvatarUrl(NOTION_CONFIG)
+  const circularFavicon = getCircularFaviconUrl(
+    avatarFavicon,
+    64,
+    siteConfig('LINK', null, NOTION_CONFIG)
+  )
+  const fallbackFavicon = siteConfig('BLOG_FAVICON', null, NOTION_CONFIG)
+  const favicon = circularFavicon || fallbackFavicon
 
   const COMMENT_WEBMENTION_ENABLE = siteConfig(
     'COMMENT_WEBMENTION_ENABLE',
@@ -106,6 +111,9 @@ const SEO = props => {
       <link rel='icon' href={favicon} />
       <link rel='shortcut icon' href={favicon} />
       <link rel='apple-touch-icon' href={favicon} />
+      {fallbackFavicon && fallbackFavicon !== favicon && (
+        <link rel='alternate icon' href={fallbackFavicon} />
+      )}
       <title>{title}</title>
       <meta name='theme-color' content={BACKGROUND_DARK} />
       <meta
@@ -164,8 +172,6 @@ const SEO = props => {
       <meta name='twitter:description' content={description} />
       <meta name='twitter:image' content={image} />
       <meta name='twitter:image:alt' content={title} />
-
-      <link rel='icon' href={BLOG_FAVICON} />
 
       {COMMENT_WEBMENTION_ENABLE && (
         <>
