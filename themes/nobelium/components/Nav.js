@@ -141,36 +141,38 @@ const NavBar = props => {
     links = customMenu
   }
 
-  if (!links || links.length === 0) {
-    return null
-  }
+  const hasMenuLinks = !!(links && links.length > 0)
 
   return (
     <div className='flex-shrink-0 flex'>
-      <ul className='hidden md:flex flex-row'>
-        {links?.map((link, index) => (
-          <MenuItemDrop key={index} link={link} />
-        ))}
-      </ul>
-      <div className='md:hidden'>
-        <Collapse
-          collapseRef={collapseRef}
-          isOpen={isOpen}
-          type='vertical'
-          className='fixed top-16 right-6'>
-          <div className='dark:border-black bg-white dark:bg-black rounded border p-2 text-sm'>
-            {links?.map((link, index) => (
-              <MenuItemCollapse
-                key={index}
-                link={link}
-                onHeightChange={param =>
-                  collapseRef.current?.updateCollapseHeight(param)
-                }
-              />
-            ))}
-          </div>
-        </Collapse>
-      </div>
+      {hasMenuLinks && (
+        <ul className='hidden md:flex flex-row'>
+          {links?.map((link, index) => (
+            <MenuItemDrop key={index} link={link} />
+          ))}
+        </ul>
+      )}
+      {hasMenuLinks && (
+        <div className='md:hidden'>
+          <Collapse
+            collapseRef={collapseRef}
+            isOpen={isOpen}
+            type='vertical'
+            className='fixed top-16 right-6'>
+            <div className='dark:border-black bg-white dark:bg-black rounded border p-2 text-sm'>
+              {links?.map((link, index) => (
+                <MenuItemCollapse
+                  key={index}
+                  link={link}
+                  onHeightChange={param =>
+                    collapseRef.current?.updateCollapseHeight(param)
+                  }
+                />
+              ))}
+            </div>
+          </Collapse>
+        </div>
+      )}
 
       {siteConfig('ENABLE_RSS') && siteConfig('NOBELIUM_MENU_RSS') && (
         <SmartLink
@@ -191,9 +193,11 @@ const NavBar = props => {
         <RandomPostButton {...props} />
       )}
       {siteConfig('NOBELIUM_MENU_SEARCH_BUTTON') && <SearchButton {...props} />}
-      <i
-        onClick={toggleOpen}
-        className='fas fa-bars cursor-pointer px-5 flex justify-center items-center md:hidden'></i>
+      {hasMenuLinks && (
+        <i
+          onClick={toggleOpen}
+          className='fas fa-bars cursor-pointer px-5 flex justify-center items-center md:hidden'></i>
+      )}
     </div>
   )
 }
