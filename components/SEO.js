@@ -1,6 +1,5 @@
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
-import { getSiteAvatarUrl } from '@/lib/utils/avatar'
 import { loadExternalResource } from '@/lib/utils'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -72,9 +71,8 @@ const SEO = props => {
     NOTION_CONFIG
   )
 
-  const siteAvatar = getSiteAvatarUrl(NOTION_CONFIG) || siteInfo?.icon
-  const fallbackFavicon = siteConfig('BLOG_FAVICON', null, NOTION_CONFIG)
-  const favicon = siteAvatar ? '/site-favicon.png' : fallbackFavicon
+  const favicon =
+    siteConfig('BLOG_FAVICON', null, NOTION_CONFIG) || '/favicon.png'
 
   const COMMENT_WEBMENTION_ENABLE = siteConfig(
     'COMMENT_WEBMENTION_ENABLE',
@@ -105,10 +103,7 @@ const SEO = props => {
     <Head>
       <link rel='icon' href={favicon} type='image/png' />
       <link rel='shortcut icon' href={favicon} />
-      <link rel='apple-touch-icon' href={fallbackFavicon || favicon} />
-      {fallbackFavicon && fallbackFavicon !== favicon && (
-        <link rel='alternate icon' href={fallbackFavicon} />
-      )}
+      <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
       <title>{title}</title>
       <meta name='theme-color' content={BACKGROUND_DARK} />
       <meta

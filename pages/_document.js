@@ -43,9 +43,9 @@ class MyDocument extends Document {
     return (
       <Html lang={BLOG.LANG}>
         <Head>
-          <link rel='icon' href={BLOG.AVATAR ? '/site-favicon.png' : (BLOG.BLOG_FAVICON || '/favicon.ico')} />
-          <link rel='shortcut icon' href={BLOG.AVATAR ? '/site-favicon.png' : (BLOG.BLOG_FAVICON || '/favicon.ico')} />
-          <link rel='apple-touch-icon' href={BLOG.BLOG_FAVICON || BLOG.AVATAR || '/favicon.ico'} />
+          <link rel='icon' href={BLOG.BLOG_FAVICON || '/favicon.png'} type='image/png' />
+          <link rel='shortcut icon' href={BLOG.BLOG_FAVICON || '/favicon.png'} />
+          <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
 
           {/* 预加载字体 */}
           {BLOG.FONT_AWESOME && (
