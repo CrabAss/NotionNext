@@ -5,6 +5,7 @@ import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import SmartLink from '@/components/SmartLink'
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 import CONFIG from '../config'
 import { MenuItemCollapse } from './MenuItemCollapse'
 import { MenuItemDrop } from './MenuItemDrop'
@@ -16,11 +17,18 @@ import { SvgIcon } from './SvgIcon'
  */
 const Nav = props => {
   const { post, fullWidth, siteInfo } = props
+  const router = useRouter()
   const autoCollapseNavBar = siteConfig(
     'NOBELIUM_AUTO_COLLAPSE_NAV_BAR',
     true,
     CONFIG
   )
+  const isHomePage = router.pathname === '/'
+  const description = siteConfig('DESCRIPTION') || siteConfig('BIO')
+  const navLogo =
+    siteConfig('NOBELIUM_NAV_NOTION_ICON') && siteInfo?.icon
+      ? siteInfo.icon
+      : siteConfig('AVATAR') || siteConfig('BLOG_FAVICON')
 
   const navRef = useRef(null)
   const sentinalRef = useRef([])
@@ -48,16 +56,17 @@ const Nav = props => {
       <div
         className={`sticky-nav m-auto w-full h-6 flex flex-row justify-between items-center mb-2 md:mb-12 py-8 bg-opacity-60 ${
           !fullWidth ? 'max-w-3xl px-4' : 'px-4 md:px-24'
-        }`}
+        } ${isHomePage ? 'homepage-nav' : ''}`}
         id='sticky-nav'
         ref={navRef}>
         <div className='flex items-center'>
           <SmartLink href='/' aria-label={siteConfig('TITLE')}>
             <div className='h-6 w-6'>
-              {/* <SvgIcon/> */}
-              {siteConfig('NOBELIUM_NAV_NOTION_ICON') ? (
+              {navLogo ? (
                 <LazyImage
-                  src={siteInfo?.icon}
+                  className='blog-logo'
+                  priority
+                  src={navLogo}
                   width={24}
                   height={24}
                   alt={siteConfig('AUTHOR')}
@@ -74,7 +83,11 @@ const Nav = props => {
           ) : (
             <p className='logo line-clamp-1 overflow-ellipsis ml-2 font-medium text-gray-800 dark:text-gray-300 header-name whitespace-nowrap'>
               {siteConfig('TITLE')}
-              {/* ,{' '}<span className="font-normal">{siteConfig('DESCRIPTION')}</span> */}
+              {isHomePage && description ? (
+                <>
+                  , <span className='font-normal'>{description}</span>
+                </>
+              ) : null}
             </p>
           )}
         </div>
@@ -94,6 +107,12 @@ const NavBar = props => {
 
   const { locale } = useGlobal()
   let links = [
+    {
+      id: 0,
+      name: locale.NAV.ABOUT,
+      href: '/about',
+      show: siteConfig('NOBELIUM_MENU_ABOUT', false, CONFIG)
+    },
     {
       id: 2,
       name: locale.NAV.RSS,
