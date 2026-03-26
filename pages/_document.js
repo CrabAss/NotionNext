@@ -43,8 +43,8 @@ class MyDocument extends Document {
     return (
       <Html lang={BLOG.LANG}>
         <Head>
-          <link rel='icon' href={BLOG.AVATAR || BLOG.BLOG_FAVICON || '/favicon.ico'} />
-          <link rel='shortcut icon' href={BLOG.AVATAR || BLOG.BLOG_FAVICON || '/favicon.ico'} />
+          <link rel='icon' href={BLOG.AVATAR ? '/site-favicon.png' : (BLOG.BLOG_FAVICON || '/favicon.ico')} />
+          <link rel='shortcut icon' href={BLOG.AVATAR ? '/site-favicon.png' : (BLOG.BLOG_FAVICON || '/favicon.ico')} />
           <link rel='apple-touch-icon' href={BLOG.BLOG_FAVICON || BLOG.AVATAR || '/favicon.ico'} />
 
           {/* 预加载字体 */}

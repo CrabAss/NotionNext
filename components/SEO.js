@@ -74,7 +74,7 @@ const SEO = props => {
 
   const siteAvatar = getSiteAvatarUrl(NOTION_CONFIG) || siteInfo?.icon
   const fallbackFavicon = siteConfig('BLOG_FAVICON', null, NOTION_CONFIG)
-  const favicon = siteAvatar || fallbackFavicon
+  const favicon = siteAvatar ? '/site-favicon.png' : fallbackFavicon
 
   const COMMENT_WEBMENTION_ENABLE = siteConfig(
     'COMMENT_WEBMENTION_ENABLE',
@@ -103,7 +103,7 @@ const SEO = props => {
   const AUTHOR = siteConfig('AUTHOR')
   return (
     <Head>
-      <link rel='icon' href={favicon} />
+      <link rel='icon' href={favicon} type='image/png' />
       <link rel='shortcut icon' href={favicon} />
       <link rel='apple-touch-icon' href={fallbackFavicon || favicon} />
       {fallbackFavicon && fallbackFavicon !== favicon && (
