@@ -43,6 +43,10 @@ class MyDocument extends Document {
     return (
       <Html lang={BLOG.LANG}>
         <Head>
+          <link rel='icon' href='/site-favicon.svg' type='image/svg+xml' />
+          <link rel='shortcut icon' href='/site-favicon.svg' />
+          <link rel='apple-touch-icon' href={BLOG.BLOG_FAVICON || '/favicon.ico'} />
+
           {/* 预加载字体 */}
           {BLOG.FONT_AWESOME && (
             <>
