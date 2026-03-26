@@ -112,7 +112,7 @@ const Style = () => {
     #theme-nobelium .notion-text,
     #theme-nobelium .notion-quote,
     #theme-nobelium .notion-h-title {
-      line-height: 1.5rem;
+      line-height: 1.8rem;
       padding: 0;
       margin: 0.75rem 0;
     }
