@@ -1,5 +1,4 @@
 import Comment from '@/components/Comment'
-import Live2D from '@/components/Live2D'
 import replaceSearchResult from '@/components/Mark'
 import NotionPage from '@/components/NotionPage'
 import ShareBar from '@/components/ShareBar'
@@ -89,11 +88,6 @@ const LayoutBase = props => {
         {/* 右下悬浮 */}
         <div className='fixed right-4 bottom-4'>
           <JumpToTopButton />
-        </div>
-
-        {/* 左下悬浮 */}
-        <div className='bottom-4 -left-14 fixed justify-end z-40'>
-          <Live2D />
         </div>
 
         {/* 搜索框 */}
