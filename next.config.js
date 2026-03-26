@@ -336,7 +336,6 @@ const nextConfig = {
     const pages = { ...defaultPathMap }
     delete pages['/sitemap.xml']
     delete pages['/rss.xml']
-    delete pages['/site-favicon.svg']
     delete pages['/auth']
     return pages
   },
