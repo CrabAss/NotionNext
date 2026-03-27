@@ -4,7 +4,6 @@ import NotionPage from '@/components/NotionPage'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import { deepClone, isBrowser } from '@/lib/utils'
-import { Transition } from '@headlessui/react'
 import dynamic from 'next/dynamic'
 import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
@@ -64,21 +63,10 @@ const LayoutBase = props => {
         <main
           id='out-wrapper'
           className={`relative m-auto flex-grow w-full transition-all ${!fullWidth ? 'max-w-3xl px-4' : 'px-4 md:px-24'}`}>
-          <Transition
-            show={!onLoading}
-            appear={true}
-            enter='transition ease-in-out duration-700 transform order-first'
-            enterFrom='opacity-0 translate-y-16'
-            enterTo='opacity-100'
-            leave='transition ease-in-out duration-300 transform'
-            leaveFrom='opacity-100 translate-y-0'
-            leaveTo='opacity-0 -translate-y-16'
-            unmount={false}>
-            {/* 顶部插槽 */}
-            {topSlot}
-            {children}
-            {post && <Catalog toc={post?.toc} />}
-          </Transition>
+          {/* 顶部插槽 */}
+          {topSlot}
+          {children}
+          {post && <Catalog toc={post?.toc} />}
         </main>
 
         {/* 页脚 */}
