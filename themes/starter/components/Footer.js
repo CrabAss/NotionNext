@@ -1,5 +1,4 @@
 import { siteConfig } from '@/lib/config'
-import SocialButton from '@/themes/fukasawa/components/SocialButton'
 import { Logo } from './Logo'
 import { SVGFooterCircleBG } from './svg/SVGFooterCircleBG'
 import SmartLink from '@/components/SmartLink'
@@ -27,11 +26,6 @@ export const Footer = props => {
                 <p className='mb-8 max-w-[270px] text-base text-gray-7'>
                   {siteConfig('STARTER_FOOTER_SLOGAN')}
                 </p>
-                <div className='-mx-3 flex items-center'>
-                  <div className='mx-3'>
-                    <SocialButton />
-                  </div>
-                </div>
               </div>
             </div>
 
