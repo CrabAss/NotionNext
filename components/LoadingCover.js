@@ -30,7 +30,9 @@ export default function LoadingCover() {
     <div
       id='loading-cover'
       onClick={handleClick}
-      className='dark:text-white text-black bg-white dark:bg-black flex flex-col justify-center z-50 w-full h-screen fixed top-0 left-0'>
+      className={`dark:text-white text-black bg-white dark:bg-black animate__animated animate__faster ${
+        onLoading ? 'animate__fadeIn' : 'animate__fadeOut'
+      } flex flex-col justify-center z-50 w-full h-screen fixed top-0 left-0`}>
       <div className='mx-auto'>
         <style global>
           {`
