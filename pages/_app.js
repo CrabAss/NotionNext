@@ -17,6 +17,12 @@ import { getQueryParam } from '../lib/utils'
 import BLOG from '@/blog.config'
 import ExternalPlugins from '@/components/ExternalPlugins'
 import SEO from '@/components/SEO'
+import { zhCN } from '@clerk/localizations'
+import dynamic from 'next/dynamic'
+// import { ClerkProvider } from '@clerk/nextjs'
+const ClerkProvider = dynamic(() =>
+  import('@clerk/nextjs').then(m => m.ClerkProvider)
+)
 
 /**
  * App挂载DOM 入口文件
@@ -58,14 +64,7 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       {enableClerk ? (
-        (() => {
-          // 仅在显式启用 Clerk 时再加载相关依赖，避免默认构建把客户端鉴权代码带进 SSR。
-          // eslint-disable-next-line global-require
-          const { ClerkProvider } = require('@clerk/nextjs')
-          // eslint-disable-next-line global-require
-          const { zhCN } = require('@clerk/localizations')
-          return <ClerkProvider localization={zhCN}>{content}</ClerkProvider>
-        })()
+        <ClerkProvider localization={zhCN}>{content}</ClerkProvider>
       ) : (
         content
       )}
