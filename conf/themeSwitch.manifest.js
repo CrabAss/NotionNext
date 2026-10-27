@@ -11,14 +11,6 @@
 
 /** @type {Record<string, { name?: string, summary?: string, cover?: string, coverWebp?: string, rootId?: string, tier?: 'free' | 'paid', settings?: Array<{ key: string, label: string, type: 'boolean' | 'text' | 'number' | 'select', defaultValue: string | number | boolean, options?: Array<{ label: string, value: string | number | boolean }> }>, palette?: Array<{ key: string, cssVar: string, label: string, defaultValue: string }> }>} */
 export const THEME_SWITCH_MANIFEST = {
-  next: {
-    name: 'Next',
-    summary: '经典双栏布局，右侧栏与移动端悬浮目录。',
-    palette: [
-      { key: 'NEXT_COLOR_PRIMARY', cssVar: '--next-color-primary', label: '主色', defaultValue: '#4e80ee' },
-      { key: 'NEXT_COLOR_BG', cssVar: '--next-color-bg', label: '页面背景', defaultValue: '#eeedee' }
-    ]
-  },
   nobelium: {
     name: 'Nobelium',
     summary: '致敬Nobelium,极简排版风格。',
@@ -29,7 +21,6 @@ export const THEME_SWITCH_MANIFEST = {
 }
 
 const THEME_CONFIGS = {
-  next: nextConfig,
   nobelium: nobeliumConfig
 }
 
@@ -247,5 +238,4 @@ export function formatThemeId(id) {
     .join(' ')
 }
 import { withBaseThemePalette } from '@/conf/themeColorPalette'
-import nextConfig from '@/themes/next/config'
 import nobeliumConfig from '@/themes/nobelium/config'

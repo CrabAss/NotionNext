@@ -1,5 +1,6 @@
 import { getPublicPostBlockMap } from '@/lib/utils/publicPost'
 import BLOG from '@/blog.config'
+import { isValidPageNumber } from '@/lib/utils/probePath'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData, getPostBlocks } from '@/lib/db/SiteDataApi'
 import { formatNotionBlock } from '@/lib/db/notion/getPostBlocks'
@@ -32,6 +33,7 @@ export async function getStaticPaths({ locale }) {
 }
 
 export async function getStaticProps({ params: { page }, locale }) {
+  if (!isValidPageNumber(page)) return { notFound: true }
   const from = `page-${page}`
   const props = await fetchGlobalAllData({ from, locale })
   const { allPages } = props
