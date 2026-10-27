@@ -17,7 +17,7 @@ export const BlogListPage = props => {
   const showNext = currentPage < totalPage && posts?.length > 0
   const pagePrefix = router.asPath
     .split('?')[0]
-    .replace(/\/page\/[1-9]\d*/, '')
+    .replace(/\/page\/.*$/, '')
     .replace(/\/$/, '')
     .replace('.html', '')
 

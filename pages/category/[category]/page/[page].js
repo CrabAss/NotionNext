@@ -1,4 +1,5 @@
 import BLOG from '@/blog.config'
+import { isValidPageNumber } from '@/lib/utils/probePath'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
 import { DynamicLayout } from '@/themes/theme'
@@ -15,6 +16,7 @@ export default function Category(props) {
 }
 
 export async function getStaticProps({ params: { category, page } }) {
+  if (!isValidPageNumber(page)) return { notFound: true }
   const from = 'category-page-props'
   let props = await fetchGlobalAllData({ from })
 
